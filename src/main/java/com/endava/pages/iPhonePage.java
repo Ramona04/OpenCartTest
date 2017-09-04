@@ -4,8 +4,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-import javax.xml.ws.wsaddressing.W3CEndpointReference;
-
 public class iPhonePage {
 
     @FindBy(xpath = ".//*[@id='product-product']/ul/li[2]/a")
@@ -44,8 +42,12 @@ public class iPhonePage {
     }
 
     public String getFirstQuantity(){
+        Integer cartWQ = 0;
+        addToCartButton.click();
         goToCartButton.click();
-        Integer cartWQ = Integer.parseInt(cartWindowQuantity.getText().substring(2)) + 1;
+        if(cartWindow.isDisplayed()){
+            cartWQ = Integer.parseInt(cartWindowQuantity.getText().substring(2)) + 1;
+        }
         return cartWQ.toString();
     }
 

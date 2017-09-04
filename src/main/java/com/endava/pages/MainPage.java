@@ -23,15 +23,15 @@ public class MainPage {
 
     private WebDriver webDriver;
 
-    public MainPage (WebDriver driver){
+    public MainPage(WebDriver driver) {
         this.webDriver = driver;
     }
 
-    public RegisterPage Register(String accountOption){
+    public RegisterPage Register(String accountOption) {
         myAccount.click();
-        if(myAccountDropDown.isDisplayed()){
-            for(int i = 0; i < myAccountOptions.size(); i++){
-                if(myAccountOptions.get(i).getText().equals("Register")){
+        if (myAccountDropDown.isDisplayed()) {
+            for (int i = 0; i < myAccountOptions.size(); i++) {
+                if (myAccountOptions.get(i).getText().equals("Register")) {
                     myAccountOptions.get(i).click();
                 }
             }
@@ -41,11 +41,11 @@ public class MainPage {
         return registerPage;
     }
 
-    public LoginPage Login(String accountOption){
+    public LoginPage Login(String accountOption) {
         myAccount.click();
-        if(myAccountDropDown.isDisplayed()){
-            for(int i = 0; i < myAccountOptions.size(); i++){
-                if(myAccountOptions.get(i).getText().equals("Login")){
+        if (myAccountDropDown.isDisplayed()) {
+            for (int i = 0; i < myAccountOptions.size(); i++) {
+                if (myAccountOptions.get(i).getText().equals("Login")) {
                     myAccountOptions.get(i).click();
                 }
             }
@@ -55,8 +55,13 @@ public class MainPage {
         return loginPage;
     }
 
-    public void Logout(){
-        logoutButton.click();
+    public void Logout() {
+        myAccount.click();
+        for (int i = 0; i < myAccountOptions.size(); i++) {
+            if (myAccountOptions.get(i).getText().equals("Logout")) {
+                myAccountOptions.get(i).click();
+            }
+        }
     }
 
 }

@@ -25,7 +25,7 @@ public class TestBaseClass {
 
     @AfterClass
     public static void after() {
-        //mainPage.Logout();
-        //webDriver.close();
+        mainPage.Logout();
+        webDriver.close();
     }
 }

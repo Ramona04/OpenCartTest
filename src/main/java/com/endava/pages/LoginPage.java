@@ -7,7 +7,11 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
+import java.util.Properties;
 
 public class LoginPage {
     @FindBy(xpath = ".//*[@id='content']/div/div[2]/div/h2")
@@ -34,9 +38,21 @@ public class LoginPage {
         this.webDriver = webDriver;
     }
 
-    public void SendCredentials(String email, String password) {
-        userEmail.sendKeys(email);
-        userPassword.sendKeys(password);
+    public void SendCredentials() {
+        Properties properties = new Properties();
+        InputStream input = null;
+
+        try {
+            input = new FileInputStream("C:\\Users\\rciuciuc\\Desktop\\Homework and Materials\\Open_Cart_ Test\\OpenCartTest\\src\\main\\resources\\config.properties");
+            properties.load(input);
+
+            userEmail.sendKeys( properties.getProperty("userEmail"));
+            userPassword.sendKeys(properties.getProperty("userPassword"));
+
+        }catch (IOException ex){
+            ex.printStackTrace();
+        }
+
         loginButton.click();
     }
 

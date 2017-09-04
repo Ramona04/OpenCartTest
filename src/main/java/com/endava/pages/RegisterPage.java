@@ -6,7 +6,11 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
+import java.util.Properties;
 
 public class RegisterPage {
 
@@ -56,18 +60,30 @@ public class RegisterPage {
         return pageTitle.getText();
     }
 
-    public void CompleteRegisterForm(String fName, String lName, String email, String phoneNumber, String pword, String subscribeAns) {
-        firstName.sendKeys(fName);
-        lastName.sendKeys(lName);
-        emailAddress.sendKeys(email);
-        telephone.sendKeys(phoneNumber);
-        password.sendKeys(pword);
-        confirmPassword.sendKeys(pword);
+    public void CompleteRegisterForm(String subscribeAns) {
+        Properties properties = new Properties();
+        InputStream input = null;
+
+        try {
+            input = new FileInputStream("C:\\Users\\rciuciuc\\Desktop\\Homework and Materials\\Open_Cart_ Test\\OpenCartTest\\src\\main\\resources\\config.properties");
+            properties.load(input);
+
+            firstName.sendKeys( properties.getProperty("firstName"));
+            lastName.sendKeys(properties.getProperty("lastName"));
+            emailAddress.sendKeys( properties.getProperty("emailAddress"));
+            telephone.sendKeys( properties.getProperty("telephone"));
+            password.sendKeys( properties.getProperty("password"));
+            confirmPassword.sendKeys( properties.getProperty("password"));
+        }catch (IOException ex){
+            ex.printStackTrace();
+        }
+
         for (int i = 0; i < subscribeToNewsletter.size(); i++) {
             if (subscribeToNewsletter.get(i).getText().equals(subscribeAns)) {
                 subscribeToNewsletter.get(i).click();
             }
         }
+
         privacyPolicyCheckBox.click();
         continueButton.click();
         finalContinueButton.click();
@@ -77,7 +93,7 @@ public class RegisterPage {
     public String CheckUser() {
         String username = firstName.getAttribute("value") + " " + lastName.getAttribute("value");
         String mail = emailAddress.getAttribute("value");
-        String phoneNo =telephone.getAttribute("value");
+        String phoneNo = telephone.getAttribute("value");
         return username + " " + mail + " " + phoneNo;
     }
 

@@ -42,8 +42,12 @@ public class MacBookPage {
     }
 
     public String getFirstQuantity(){
+        Integer cartWQ = 0;
+        addToCartButton.click();
         goToCartButton.click();
-        Integer cartWQ = Integer.parseInt(cartWindowQuantity.getText().substring(2)) + 1;
+        if(cartWindow.isDisplayed()){
+            cartWQ = Integer.parseInt(cartWindowQuantity.getText().substring(2)) + 1;
+        }
         return cartWQ.toString();
     }
 
