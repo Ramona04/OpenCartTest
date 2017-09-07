@@ -47,7 +47,7 @@ public class RegisterTest extends TestBaseClass {
     @Test
     public void connectDB() throws SQLException {
 
-        dbConnectionPage.DBconnection();
+        dbConnectionPage.DBconnection("INSERT INTO oc_address " + "VALUES(null, (SELECT customer_id FROM oc_customer WHERE email='raciuciuc@gmail.com'), 'Ramona', 'Ciuciuc', 'Endava', '11 street name', '2 street name', 'Bucharest', '137035', 40, 33, 'cust')");
 
         LoginPage loginPage = mainPage.Login("Login");
         loginPage.SendCredentials();
@@ -66,7 +66,7 @@ public class RegisterTest extends TestBaseClass {
 
     @Before
     public void ResetCart() throws SQLException {
-        dbConnectionPage.ResetCartQuantity();
+        dbConnectionPage.DBconnection("UPDATE oc_cart" + " " + "SET quantity = 0" + " " + "WHERE customer_id=(SELECT customer_id FROM oc_customer WHERE email='raciuciuc@gmail.com')");
     }
 
     @Test
@@ -85,7 +85,7 @@ public class RegisterTest extends TestBaseClass {
 //        String initialQuantity = iphonePage.getFirstQuantity();
         String initialQuantity = macBookPage.getFirstQuantity();
 
-        dbConnectionPage.EditQuantityValue();
+        dbConnectionPage.DBconnection("UPDATE oc_cart" + " " + "SET quantity = quantity+1" + " " + "WHERE customer_id=(SELECT customer_id FROM oc_customer WHERE email='raciuciuc@gmail.com')");
 
 //        Assert.assertEquals(initialQuantity, iphonePage.getFinalQuantity());
         Assert.assertEquals(initialQuantity, macBookPage.getFinalQuantity());
